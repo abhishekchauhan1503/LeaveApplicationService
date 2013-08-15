@@ -12,7 +12,7 @@
   http://www.springframework.org/schema/tx 
   http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 	<beans:description>Example configuration to get you started.
-	</beans:description>	
+	</beans:description>
 
 	<beans:import resource="classpath:/META-INF/spring/app-context.xml" />
 
@@ -21,10 +21,14 @@
 	<context:annotation-config />
 	<context:component-scan base-package="com.abhishek.leaveapplicationservice" />
 	<context:component-scan base-package="com.abhishek.leaveapplication" />
-	
-	<beans:bean id="userService" class="com.abhishek.leaveapplicationservice.servicesimpl.UserServicesImpl">
-      <beans:property name="userDao" ref ="userDao"></beans:property>
-   </beans:bean>
-	
+	<!-- <beans:bean id="userService" class="com.abhishek.leaveapplicationservice.servicesimpl.UserServicesImpl"> 
+		<beans:property name="userDao" ref ="userDao"></beans:property> </beans:bean> 
+		<beans:bean id="roleService" class="com.abhishek.leaveapplicationservice.servicesimpl.RoleServicesImpl"> 
+		<beans:property name="roleDao" ref ="roleDao"></beans:property> </beans:bean> 
+		<beans:bean id="applicationService" class="com.abhishek.leaveapplicationservice.servicesimpl.ApplicationServicesImpl"> 
+		<beans:property name="applicationDAO" ref ="applicationDao"></beans:property> 
+		</beans:bean> -->
+	<beans:bean id="entityAdapter"
+		class="com.abhishek.leaveapplicationservice.utils.EntityAdapter"></beans:bean>
 
-	</beans:beans>
+</beans:beans>

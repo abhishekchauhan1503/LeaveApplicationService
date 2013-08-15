@@ -26,7 +26,7 @@ public class ServiceUtil {
 		User user = (User) factory.getBean("userTest");// new User();
 		UserServicesImpl userServicesImpl = (UserServicesImpl) factory
 				.getBean("userService");
-		userServicesImpl.createUser(user);
+		
 		System.out.println(user.getUserName());
 	}
 

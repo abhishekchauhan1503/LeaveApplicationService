@@ -2,62 +2,89 @@ package com.abhishek.leaveapplicationservice.servicesimpl;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataRetrievalFailureException;
+import org.springframework.stereotype.Service;
 
 import com.abhishek.leaveapplication.dao.ApplicationDAO;
 import com.abhishek.leaveapplication.model.Application;
+import com.abhishek.leaveapplicationservice.entity.ApplicationEntity;
+import com.abhishek.leaveapplicationservice.services.ApplicationServices;
+import com.abhishek.leaveapplicationservice.utils.EntityAdapter;
 
-public class ApplicationServicesImpl implements ApplicationDAO {
+@Service
+public class ApplicationServicesImpl implements ApplicationServices {
 
+	@Autowired
 	private ApplicationDAO applicationDAO;
 
-	public long createNewApplication(Application application) throws Exception {
-		if (application.getFrom() == null
-				|| application.getTo() == null
-				|| application.getSubmissionDate() == null
-				|| application.getContent() == null
-				|| (application.getStatus() != 'P'
-						&& application.getStatus() != 'R' && application
-						.getStatus() != 'A')) {
-			throw new DataRetrievalFailureException("Missing attributes");
-		}
-		long id = applicationDAO.createNewApplication(application);
-		return id;
-	}
+	@Autowired
+	private EntityAdapter adapter;
 
-	public Application getApplication(long id) throws Exception {
+	public ApplicationEntity getApplication(long id) throws Exception {
 		if (id <= 0) {
 			throw new DataRetrievalFailureException(
 					"Null or Inalid application Id");
 		}
 		Application application = applicationDAO.getApplication(id);
-		return application;
+		ApplicationEntity applicationEntity = adapter
+				.applicationToEntity(application);
+		return applicationEntity;
 	}
 
-	public long updateApplication(Application application) throws Exception {
-		if (application.getId() <= 0
-				|| application.getFrom() == null
-				|| application.getTo() == null
-				|| application.getSubmissionDate() == null
-				|| application.getContent() == null
-				|| (application.getStatus() != 'P'
-						&& application.getStatus() != 'R' && application
+	public long createNewApplication(ApplicationEntity applicationEntity)
+			throws Exception {
+		// TODO Auto-generated method stub
+		if (applicationEntity.getFrom() == null
+				|| applicationEntity.getTo() == null
+				|| applicationEntity.getSubmissionDate() == null
+				|| applicationEntity.getContent() == null
+				|| (applicationEntity.getStatus() != 'P'
+						&& applicationEntity.getStatus() != 'R' && applicationEntity
+						.getStatus() != 'A')) {
+			throw new DataRetrievalFailureException("Missing attributes");
+		}
+		Application application = adapter
+				.applicationEntityToApplication(applicationEntity);
+		long id = applicationDAO.createNewApplication(application);
+		return id;
+
+	}
+
+	public long updateApplication(ApplicationEntity applicationEntity)
+			throws Exception {
+		if (applicationEntity.getId() <= 0
+				|| applicationEntity.getFrom() == null
+				|| applicationEntity.getTo() == null
+				|| applicationEntity.getSubmissionDate() == null
+				|| applicationEntity.getContent() == null
+				|| (applicationEntity.getStatus() != 'P'
+						&& applicationEntity.getStatus() != 'R' && applicationEntity
 						.getStatus() != 'A'))
 
 		{
 			throw new DataRetrievalFailureException("Missing attributes");
 		}
+		Application application = adapter
+				.applicationEntityToApplication(applicationEntity);
 		long updateResult = applicationDAO.updateApplication(application);
 		return updateResult;
 	}
 
-	@Resource(name = "applicationDao")
 	public ApplicationDAO getApplicationDAO() {
 		return applicationDAO;
 	}
 
 	public void setApplicationDAO(ApplicationDAO applicationDAO) {
 		this.applicationDAO = applicationDAO;
+	}
+
+	public EntityAdapter getAdapter() {
+		return adapter;
+	}
+
+	public void setAdapter(EntityAdapter adapter) {
+		this.adapter = adapter;
 	}
 
 }

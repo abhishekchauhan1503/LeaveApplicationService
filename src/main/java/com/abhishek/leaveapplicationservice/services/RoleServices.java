@@ -1,8 +1,8 @@
 package com.abhishek.leaveapplicationservice.services;
 
-import com.abhishek.leaveapplication.model.Role;
+import com.abhishek.leaveapplicationservice.entity.RoleEntity;
 
 public interface RoleServices {
-	public long createRole(Role roleType) throws Exception;
-	public Role getRole(long roleId) throws Exception;
+	public long createRole(RoleEntity roleType) throws Exception;
+	public RoleEntity getRole(long roleId) throws Exception;
 }
