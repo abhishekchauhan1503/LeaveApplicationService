@@ -1,6 +1,7 @@
 package com.abhishek.leaveapplicationservice.servicesimpl;
 
 import javax.annotation.Resource;
+import com.abhishek.leaveapplicationservice.generatedclasses.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataRetrievalFailureException;
@@ -21,16 +22,20 @@ public class RoleServicesImpl implements RoleServices {
 	@Autowired
 	private EntityAdapter adapter;
 
-	public long createRole(RoleEntity roleType) throws Exception {
-		if (roleType == null) {
+	public long createRole(CreateRoleInput roleInput) throws Exception {
+		if (roleInput == null) {
 			throw new DataRetrievalFailureException("ERROR: Role is required");
 		}
-		Role role = adapter.roleEntityToRole(roleType);
+		RoleEntity roleEntity = new RoleEntity();
+		roleEntity.setId(roleInput.getRoleId());
+		roleEntity.setName(roleInput.getRoleName());
+		Role role = adapter.roleEntityToRole(roleEntity);
 		long id = roleDao.createRole(role);
 		return id;
 	}
 
-	public RoleEntity getRole(long roleId) throws Exception {
+	public RoleEntity getRole(GetRoleInput roleInput) throws Exception {
+		long roleId = roleInput.getRoleId();
 		if (Long.valueOf(roleId) == null) {
 			throw new DataRetrievalFailureException(
 					"ERROR: Role id is required");

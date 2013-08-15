@@ -75,8 +75,8 @@ public class EntityAdapter {
 		if(managerEntity.getId()>0){
 			manager.setId(managerEntity.getId());
 		}
-		manager.setUserName(managerEntity.getUserName());
-		manager.setRoleType(roleEntityToRole(managerEntity.getRoleType()));
+		//manager.setUserName(managerEntity.getUserName());
+		//manager.setRoleType(roleEntityToRole(managerEntity.getRoleType()));
 		return manager;
 	}
 	

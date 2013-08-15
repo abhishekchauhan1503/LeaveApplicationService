@@ -9,7 +9,10 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.abhishek.leaveapplication.dao.UserDAO;
 import com.abhishek.leaveapplication.model.User;
+import com.abhishek.leaveapplicationservice.entity.RoleEntity;
 import com.abhishek.leaveapplicationservice.entity.UserEntity;
+import com.abhishek.leaveapplicationservice.generatedclasses.CreateUserInput;
+import com.abhishek.leaveapplicationservice.generatedclasses.GetUserInput;
 import com.abhishek.leaveapplicationservice.services.UserServices;
 import com.abhishek.leaveapplicationservice.utils.EntityAdapter;
 
@@ -22,20 +25,43 @@ public class UserServicesImpl implements UserServices {
 	@Autowired
 	private EntityAdapter adapter;
 
-	public long createUser(UserEntity userEntity) throws Exception {
-
-		if (userEntity == null || userEntity.getUserName() == null
-				|| userEntity.getPassword() == null
-				|| userEntity.getRoleType() == null) {
+	public long createUser(CreateUserInput userInput) throws Exception {
+		if(userInput == null){
+			throw new DataRetrievalFailureException(
+					"Null Input Provided!!!");
+		}
+		
+		if (userInput.getUserName() == null
+				|| userInput.getPassword() == null
+				|| userInput.getRoleId() <= 0) {
 			throw new DataRetrievalFailureException(
 					"ERROR: Username, password and role type are required.");
 		}
+		UserEntity userEntity = new UserEntity();
+		userEntity.setUserName(userInput.getUserName());
+		userEntity.setPassword(userInput.getPassword());
+		RoleEntity roleEntity = new RoleEntity();
+		roleEntity.setId(userInput.getRoleId());
+		userEntity.setRoleType(roleEntity);
+		
+		if(userInput.getManagerId()>0){
+		UserEntity manager = new UserEntity();
+		manager.setId(userInput.getManagerId());
+		userEntity.setManager(manager);
+		}
+		
 		User user = adapter.userEntityToUser(userEntity);
 		long id = userDao.createUser(user);
 		return id;
 	}
 
-	public UserEntity getUser(String userName, long id) throws Exception {
+	public UserEntity getUser(GetUserInput userInput) throws Exception {
+		if(userInput == null){
+			throw new DataRetrievalFailureException(
+					"Username or Id is required");
+		}
+		String userName = userInput.getUserName();
+		long id = userInput.getUserId();
 		if (userName == null && id == 0) {
 			throw new DataRetrievalFailureException(
 					"Username or Id is required");

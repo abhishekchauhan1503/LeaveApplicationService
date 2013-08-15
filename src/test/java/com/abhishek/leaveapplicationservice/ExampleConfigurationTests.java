@@ -17,6 +17,9 @@ public class ExampleConfigurationTests {
 	@Autowired
 	private Service service;
 
-	
+	@Test
+	public void test(){
+		
+	}
 	
 }

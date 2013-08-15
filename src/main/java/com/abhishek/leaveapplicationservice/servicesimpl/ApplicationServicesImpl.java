@@ -8,7 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.abhishek.leaveapplication.dao.ApplicationDAO;
 import com.abhishek.leaveapplication.model.Application;
+import com.abhishek.leaveapplication.model.User;
 import com.abhishek.leaveapplicationservice.entity.ApplicationEntity;
+import com.abhishek.leaveapplicationservice.generatedclasses.CreateApplicationInput;
+import com.abhishek.leaveapplicationservice.generatedclasses.GetApplicationInput;
+import com.abhishek.leaveapplicationservice.generatedclasses.UpdateApplicationInput;
 import com.abhishek.leaveapplicationservice.services.ApplicationServices;
 import com.abhishek.leaveapplicationservice.utils.EntityAdapter;
 
@@ -21,10 +25,15 @@ public class ApplicationServicesImpl implements ApplicationServices {
 	@Autowired
 	private EntityAdapter adapter;
 
-	public ApplicationEntity getApplication(long id) throws Exception {
+	public ApplicationEntity getApplication(GetApplicationInput applicationInput)
+			throws Exception {
+		long id;
+		if (applicationInput == null) {
+			throw new DataRetrievalFailureException("Null application Id");
+		}
+		id = applicationInput.getApplicationId();
 		if (id <= 0) {
-			throw new DataRetrievalFailureException(
-					"Null or Inalid application Id");
+			throw new DataRetrievalFailureException("Inalid application Id");
 		}
 		Application application = applicationDAO.getApplication(id);
 		ApplicationEntity applicationEntity = adapter
@@ -32,41 +41,70 @@ public class ApplicationServicesImpl implements ApplicationServices {
 		return applicationEntity;
 	}
 
-	public long createNewApplication(ApplicationEntity applicationEntity)
+	public long createNewApplication(CreateApplicationInput applicationInput)
 			throws Exception {
 		// TODO Auto-generated method stub
-		if (applicationEntity.getFrom() == null
-				|| applicationEntity.getTo() == null
-				|| applicationEntity.getSubmissionDate() == null
-				|| applicationEntity.getContent() == null
-				|| (applicationEntity.getStatus() != 'P'
-						&& applicationEntity.getStatus() != 'R' && applicationEntity
-						.getStatus() != 'A')) {
+		if (applicationInput == null) {
+			throw new DataRetrievalFailureException("Null input provided");
+		}
+
+		if (applicationInput.getFrom() <= 0 || applicationInput.getTo() <= 0
+				|| applicationInput.getSubmissionDate() == null
+				|| applicationInput.getContent() == null
+				|| !(applicationInput.getStatus().equalsIgnoreCase("P"))
+				&& !(applicationInput.getStatus().equalsIgnoreCase("R"))
+				&& !(applicationInput.getStatus().equalsIgnoreCase("A"))) {
 			throw new DataRetrievalFailureException("Missing attributes");
 		}
-		Application application = adapter
-				.applicationEntityToApplication(applicationEntity);
+
+		Application application = new Application();
+		application.setContent(applicationInput.getContent());
+		application.setStatus(applicationInput.getStatus().charAt(0));
+		application.setSubmissionDate(applicationInput.getSubmissionDate());
+		User to = new User();
+		User from = new User();
+		to.setId(applicationInput.getTo());
+		from.setId(applicationInput.getFrom());
+
+		application.setTo(to);
+		application.setFrom(from);
+
+		// .applicationEntityToApplication(applicationEntity);
 		long id = applicationDAO.createNewApplication(application);
 		return id;
 
 	}
 
-	public long updateApplication(ApplicationEntity applicationEntity)
+	public long updateApplication(UpdateApplicationInput applicationInput)
 			throws Exception {
-		if (applicationEntity.getId() <= 0
-				|| applicationEntity.getFrom() == null
-				|| applicationEntity.getTo() == null
-				|| applicationEntity.getSubmissionDate() == null
-				|| applicationEntity.getContent() == null
-				|| (applicationEntity.getStatus() != 'P'
-						&& applicationEntity.getStatus() != 'R' && applicationEntity
-						.getStatus() != 'A'))
 
-		{
+		if (applicationInput == null) {
+			throw new DataRetrievalFailureException("Null input provided");
+		}
+
+		if (applicationInput.getId() <= 0 || applicationInput.getFrom() <= 0
+				|| applicationInput.getTo() <= 0
+				|| applicationInput.getSubmissionDate() == null
+				|| applicationInput.getContent() == null
+				|| !(applicationInput.getStatus().equalsIgnoreCase("P"))
+				&& !(applicationInput.getStatus().equalsIgnoreCase("R"))
+				&& !(applicationInput.getStatus().equalsIgnoreCase("A"))) {
 			throw new DataRetrievalFailureException("Missing attributes");
 		}
-		Application application = adapter
-				.applicationEntityToApplication(applicationEntity);
+		
+		Application application = new Application();
+		application.setId(applicationInput.getId());
+		application.setContent(applicationInput.getContent());
+		application.setStatus(applicationInput.getStatus().charAt(0));
+		application.setSubmissionDate(applicationInput.getSubmissionDate());
+		User to = new User();
+		User from = new User();
+		to.setId(applicationInput.getTo());
+		from.setId(applicationInput.getFrom());
+
+		application.setTo(to);
+		application.setFrom(from);
+
 		long updateResult = applicationDAO.updateApplication(application);
 		return updateResult;
 	}
