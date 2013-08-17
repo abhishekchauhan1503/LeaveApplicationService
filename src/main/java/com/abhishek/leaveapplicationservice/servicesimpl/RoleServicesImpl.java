@@ -11,7 +11,7 @@ import com.abhishek.leaveapplication.dao.RoleDAO;
 import com.abhishek.leaveapplication.model.Role;
 import com.abhishek.leaveapplicationservice.entity.RoleEntity;
 import com.abhishek.leaveapplicationservice.services.RoleServices;
-import com.abhishek.leaveapplicationservice.utils.EntityAdapter;
+import com.abhishek.leaveapplicationservices.util.EntityAdapter;
 
 @Service
 public class RoleServicesImpl implements RoleServices {

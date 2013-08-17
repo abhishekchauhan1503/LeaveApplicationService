@@ -29,6 +29,5 @@
 		<beans:property name="applicationDAO" ref ="applicationDao"></beans:property> 
 		</beans:bean> -->
 	<beans:bean id="entityAdapter"
-		class="com.abhishek.leaveapplicationservice.utils.EntityAdapter"></beans:bean>
-
+		class="com.abhishek.leaveapplicationservices.util.EntityAdapter"></beans:bean>
 </beans:beans>

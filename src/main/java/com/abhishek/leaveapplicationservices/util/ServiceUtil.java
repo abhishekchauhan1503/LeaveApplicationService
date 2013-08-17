@@ -1,4 +1,4 @@
-package com.abhishek.leaveapplicationservice.utils;
+package com.abhishek.leaveapplicationservices.util;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.ApplicationContext;

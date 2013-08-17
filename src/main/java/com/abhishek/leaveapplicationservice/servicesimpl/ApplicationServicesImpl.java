@@ -1,5 +1,7 @@
 package com.abhishek.leaveapplicationservice.servicesimpl;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,7 @@ import com.abhishek.leaveapplicationservice.generatedclasses.CreateApplicationIn
 import com.abhishek.leaveapplicationservice.generatedclasses.GetApplicationInput;
 import com.abhishek.leaveapplicationservice.generatedclasses.UpdateApplicationInput;
 import com.abhishek.leaveapplicationservice.services.ApplicationServices;
-import com.abhishek.leaveapplicationservice.utils.EntityAdapter;
+import com.abhishek.leaveapplicationservices.util.EntityAdapter;
 
 @Service
 public class ApplicationServicesImpl implements ApplicationServices {
@@ -68,6 +70,7 @@ public class ApplicationServicesImpl implements ApplicationServices {
 
 		application.setTo(to);
 		application.setFrom(from);
+		application.setModificationDate(new Date());
 
 		// .applicationEntityToApplication(applicationEntity);
 		long id = applicationDAO.createNewApplication(application);

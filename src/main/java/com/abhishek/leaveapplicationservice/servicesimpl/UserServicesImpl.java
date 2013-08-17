@@ -14,7 +14,7 @@ import com.abhishek.leaveapplicationservice.entity.UserEntity;
 import com.abhishek.leaveapplicationservice.generatedclasses.CreateUserInput;
 import com.abhishek.leaveapplicationservice.generatedclasses.GetUserInput;
 import com.abhishek.leaveapplicationservice.services.UserServices;
-import com.abhishek.leaveapplicationservice.utils.EntityAdapter;
+import com.abhishek.leaveapplicationservices.util.EntityAdapter;
 
 @Service
 public class UserServicesImpl implements UserServices {

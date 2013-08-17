@@ -1,4 +1,4 @@
-package com.abhishek.leaveapplicationservice.utils;
+package com.abhishek.leaveapplicationservices.util;
 
 import com.abhishek.leaveapplication.model.Application;
 import com.abhishek.leaveapplication.model.Role;
