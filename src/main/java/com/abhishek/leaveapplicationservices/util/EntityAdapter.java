@@ -40,6 +40,7 @@ public class EntityAdapter {
 	
 	public ApplicationEntity applicationToEntity(Application application){
 		ApplicationEntity applicationEntity = new ApplicationEntity();
+		applicationEntity.setId(application.getId());
 		applicationEntity.setContent(application.getContent());
 		applicationEntity.setSubmissionDate(application.getSubmissionDate());
 		applicationEntity.setStatus(application.getStatus());
