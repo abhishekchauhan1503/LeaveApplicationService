@@ -3,9 +3,9 @@ package com.abhishek.leaveapplicationservice.services;
 import java.util.ArrayList;
 
 
-import com.abhishek.leaveapplication.generatedclasses.CreateNewMessageInput;
-import com.abhishek.leaveapplication.generatedclasses.GetMessagesInput;
 import com.abhishek.leaveapplication.model.Message;
+import com.abhishek.leaveapplicationservice.generatedclasses.CreateNewMessageInput;
+import com.abhishek.leaveapplicationservice.generatedclasses.GetMessagesInput;
 
 public interface MessageService {
 	public long saveNewMessage(CreateNewMessageInput message) throws Exception;

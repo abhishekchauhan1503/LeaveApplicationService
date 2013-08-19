@@ -8,10 +8,10 @@ import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 import com.abhishek.leaveapplication.dao.MessageDAO;
-import com.abhishek.leaveapplication.generatedclasses.CreateNewMessageInput;
-import com.abhishek.leaveapplication.generatedclasses.GetMessagesInput;
 import com.abhishek.leaveapplication.model.Message;
 import com.abhishek.leaveapplication.model.User;
+import com.abhishek.leaveapplicationservice.generatedclasses.CreateNewMessageInput;
+import com.abhishek.leaveapplicationservice.generatedclasses.GetMessagesInput;
 import com.abhishek.leaveapplicationservice.services.MessageService;
 
 @Service
@@ -32,7 +32,7 @@ public class MessageServiceImpl implements MessageService {
 		messageToSave.setContent(message.getContent());
 		messageToSave.setCreationDate(new Date());
 		messageToSave.setRead(false);
-		
+
 		User to = new User();
 		User from = new User();
 		to.setId(message.getTo());
@@ -52,8 +52,9 @@ public class MessageServiceImpl implements MessageService {
 		if (getInput.getUserId() <= 0) {
 			throw new DataRetrievalFailureException("Invalid UserId provided");
 		}
-		
-		long result = messageDao.findNumberOfUnreadMessagesForUser(getInput.getUserId());
+
+		long result = messageDao.findNumberOfUnreadMessagesForUser(getInput
+				.getUserId());
 		return result;
 	}
 
@@ -65,8 +66,9 @@ public class MessageServiceImpl implements MessageService {
 		if (getInput.getUserId() <= 0) {
 			throw new DataRetrievalFailureException("Invalid UserId provided");
 		}
-
-		ArrayList<Message> messages = messageDao.getAllMessagesForUser(getInput.getUserId());
+		User user = new User();
+		user.setId(getInput.getUserId());
+		ArrayList<Message> messages = messageDao.getAllMessagesForUser(user);
 		return messages;
 	}
 

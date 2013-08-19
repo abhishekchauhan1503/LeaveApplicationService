@@ -12,11 +12,11 @@ import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 import com.abhishek.leaveapplication.dao.ApplicationDAO;
-import com.abhishek.leaveapplication.generatedclasses.GetApplicationForUserInput;
 import com.abhishek.leaveapplication.model.Application;
 import com.abhishek.leaveapplication.model.User;
 import com.abhishek.leaveapplicationservice.entity.ApplicationEntity;
 import com.abhishek.leaveapplicationservice.generatedclasses.CreateApplicationInput;
+import com.abhishek.leaveapplicationservice.generatedclasses.GetApplicationForUserInput;
 import com.abhishek.leaveapplicationservice.generatedclasses.GetApplicationInput;
 import com.abhishek.leaveapplicationservice.generatedclasses.UpdateApplicationInput;
 import com.abhishek.leaveapplicationservice.services.ApplicationServices;

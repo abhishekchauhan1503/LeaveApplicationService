@@ -2,9 +2,10 @@ package com.abhishek.leaveapplicationservice.services;
 
 import java.util.ArrayList;
 
-import com.abhishek.leaveapplication.generatedclasses.GetApplicationForUserInput;
+
 import com.abhishek.leaveapplicationservice.entity.ApplicationEntity;
 import com.abhishek.leaveapplicationservice.generatedclasses.CreateApplicationInput;
+import com.abhishek.leaveapplicationservice.generatedclasses.GetApplicationForUserInput;
 import com.abhishek.leaveapplicationservice.generatedclasses.GetApplicationInput;
 import com.abhishek.leaveapplicationservice.generatedclasses.UpdateApplicationInput;
 

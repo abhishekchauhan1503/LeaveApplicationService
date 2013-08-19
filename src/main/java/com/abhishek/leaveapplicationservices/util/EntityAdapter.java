@@ -24,7 +24,7 @@ public class EntityAdapter {
 	private UserEntity managerToEntity(User manager){
 		UserEntity userEntity = new UserEntity();
 		userEntity.setId(manager.getId());
-		//userEntity.setUserName(manager.getUserName());
+		userEntity.setUserName(manager.getUserName());
 		//userEntity.setPassword(manager.getPassword());
 		//userEntity.setRoleType(roleToEntity(manager.getRoleType()));
 		return userEntity;
@@ -76,7 +76,7 @@ public class EntityAdapter {
 		if(managerEntity.getId()>0){
 			manager.setId(managerEntity.getId());
 		}
-		//manager.setUserName(managerEntity.getUserName());
+		manager.setUserName(managerEntity.getUserName());
 		//manager.setRoleType(roleEntityToRole(managerEntity.getRoleType()));
 		return manager;
 	}
