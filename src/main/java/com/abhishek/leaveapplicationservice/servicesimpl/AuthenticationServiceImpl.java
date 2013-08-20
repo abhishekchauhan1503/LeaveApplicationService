@@ -31,8 +31,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		String password = input.getPassword();
 		User userReturned = authenticationDAO
 				.authenticateUserAndReturnProfileIfExists(userName, password);
+		if(userReturned!=null){
 		UserEntity userEntity = adapter.userToEntity(userReturned);
 		return userEntity;
+		}
+		else{
+			return null;
+		}
 	}
 
 }

@@ -72,4 +72,17 @@ public class MessageServiceImpl implements MessageService {
 		return messages;
 	}
 
+	public long updateMessage(CreateNewMessageInput input) throws Exception {
+		if (input == null) {
+			throw new DataRetrievalFailureException("Null input provided");
+		}		if(input.getId() <= 0 ){
+			throw new DataRetrievalFailureException("Invalid message id");
+		}
+		Message messageToUpdate = new Message();
+		messageToUpdate.setId(input.getId());
+		messageToUpdate.setRead(true);
+		long update = messageDao.updateMessage(messageToUpdate);
+		return update;
+	}
+
 }
